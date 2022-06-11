@@ -68,14 +68,19 @@ const doesUserHaveAppAccess = async ({
   appId,
   userId,
   accessToCheck = [],
-  env
+  env,
+  region
 }) => {
   const user = await auth.findOne({ userId: userId });
   if (user && Array.isArray(user.accessList)) {
-    const allAppAccess = user.accessList
-      .filter((access) => access.appId === appId && access.env === env)
-      .map((access) => access.access);
-    return accessToCheck.every((acc) => allAppAccess.includes(acc));
+    if ((user.regionAccessList || []).includes(region)) {
+      const allAppAccess = user.accessList
+        .filter((access) => access.appId === appId && access.env === env)
+        .map((access) => access.access);
+      return accessToCheck.every((acc) => allAppAccess.includes(acc));
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
@@ -99,6 +104,34 @@ const createAccessRequest = async (req, res) => {
   res.send({ message: "request sent to admin" });
 };
 
+const checkRegionAccess = async (req, res) => {
+  const response = await auth.findOne({ userId: req.headers.__userId });
+  const { regionList = [] } = req.body;
+  if (
+    response &&
+    Array.isArray(response.regionAccessList) &&
+    Array.isArray(regionList)
+  ) {
+    const hasAccess = regionList.every((region) => {
+      return response.regionAccessList.includes(region);
+    });
+    console.log(regionList, response.regionAccessList);
+    if (hasAccess) {
+      res
+        .send({
+          message: "have region access in " + regionList.join(",")
+        })
+        .end();
+    } else {
+      return res
+        .status(400)
+        .json({ error: "do not have access in atleast one region" });
+    }
+  } else {
+    return res.status(400).json({ error: "do not have access in any region" });
+  }
+};
+
 const getAllUserAccess = async ({ userId }) => {
   const user = await auth.findOne({ userId: userId });
   return user;
@@ -108,3 +141,4 @@ exports.validateCognitoIdToken = validateCognitoIdToken;
 exports.doesUserHaveAppAccess = doesUserHaveAppAccess;
 exports.getAllUserAccess = getAllUserAccess;
 exports.createAccessRequest = createAccessRequest;
+exports.checkRegionAccess = checkRegionAccess;

@@ -1,6 +1,6 @@
 {
   "userId": "userId",
-  "forBasicAccess": false,
+  "forRegion": "us-east-1",
   "forAppId": "forAppId",
   "forEnv": "forEnv",
   "accessList": ["UPDATE"]

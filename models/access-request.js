@@ -1,7 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const { APP_ACCESS, USER_TYPE } = require("../constants");
-
+const { APP_ACCESS, USER_TYPE, REGIONS } = require("../constants");
 
 const accessRequest = mongoose.model(
   "accessRequest",
@@ -11,9 +10,10 @@ const accessRequest = mongoose.model(
         type: String,
         required: true
       },
-      forBasicAccess: {
-        type: Boolean,
-        required: false
+      forRegion: {
+        type: String,
+        required: true,
+        enum: Object.keys(REGIONS)
       },
       forAppId: {
         type: String,

@@ -1,3 +1,4 @@
 {
-  "userId": "userId"
+  "userId": "userId",
+  "regionAccessList": ["us-east-1"]
 }

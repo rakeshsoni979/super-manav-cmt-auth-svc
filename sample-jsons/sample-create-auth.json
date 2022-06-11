@@ -2,7 +2,7 @@
   "userId": "test",
   "userType": "BASIC_USER",
   "email": "test@test.com",
-  "basicAccess": true,
+  "regionAccessList": ["ap-south-1"],
   "accessList": [
     {
       "appId": "test",

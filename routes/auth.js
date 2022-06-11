@@ -5,30 +5,27 @@ const { basicCognitoUser } = require("./interceptors/basic-cognito-user");
 const {
   doesUserHaveAppAccess,
   getAllUserAccess,
-  createAccessRequest
+  createAccessRequest,
+  checkRegionAccess
 } = require("../services/auth");
 const router = express.Router();
 
 router.use(basicCognitoUser);
 
-// request basic access
+// request access
 router.post("/request-access", createAccessRequest);
-// check basic access
-router.get("/check-basic-access", async (req, res) => {
-  const response = await auth.findOne({ userId: req.headers.__userId });
-  if (response && response.basicAccess) {
-    res.send({ message: "have basic access" }).end();
-  } else {
-    return res.status(400).json({ error: "do not have basic access" });
-  }
-});
+
+// check region access
+router.get("/check-region-access", checkRegionAccess);
+
 // check app access
 router.post("/check-app-access", async (req, res) => {
   const access = await doesUserHaveAppAccess({
     userId: req.headers.__userId,
     appId: req.body.appId,
     accessToCheck: req.body.accessToCheck,
-    env: req.body.env
+    env: req.body.env,
+    region: req.body.region
   });
   if (access) {
     res.send({ message: "have  access" }).end();

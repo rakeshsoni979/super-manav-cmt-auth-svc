@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const { APP_ACCESS, USER_TYPE } = require("../constants");
+const { APP_ACCESS, USER_TYPE, REGIONS } = require("../constants");
 
 const AppAccess = new mongoose.Schema({
   appId: {
@@ -35,36 +35,18 @@ const auth = mongoose.model(
       email: {
         type: String
       },
-      basicAccess: {
-        type: Boolean,
-        required: false
-      },
+      regionAccessList: [
+        {
+          type: String,
+          required: true,
+          enum: Object.keys(REGIONS),
+          default: "ap-south-1"
+        }
+      ],
       accessList: [AppAccess]
     },
     { timestamps: true }
   )
 );
 
-function validateTemp(auth) {
-  let appAccess = Joi.object().keys({
-    appId: Joi.string().required(),
-    env: Joi.string().required(),
-    access: Joi.string()
-      .valid(...Object.values(APP_ACCESS))
-      .required()
-  });
-
-  let accessList = Joi.array().items(appAccess);
-
-  const schema = {
-    userId: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(5).max(50).required(),
-    basicAccess: Joi.boolean(),
-    accessList: accessList
-  };
-
-  return Joi.validate(auth, schema);
-}
-
 exports.auth = auth;
-exports.validate = validateTemp;
