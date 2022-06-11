@@ -22,7 +22,6 @@ const auth = mongoose.model(
   "auth",
   new mongoose.Schema(
     {
-      _id: {type: String},
       userId: {
         type: String,
         required: true
@@ -34,8 +33,7 @@ const auth = mongoose.model(
         default: USER_TYPE.basicUser
       },
       email: {
-        type: String,
-        required: true
+        type: String
       },
       basicAccess: {
         type: Boolean,

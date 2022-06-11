@@ -23,6 +23,7 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^5.2.9",
     "aws-sdk": "^2.1152.0",
+    "cors": "^2.8.5",
     "express": "^4.16.2",
     "fawn": "^2.1.5",
     "joi": "^13.1.0",

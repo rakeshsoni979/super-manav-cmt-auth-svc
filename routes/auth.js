@@ -9,7 +9,10 @@ router.use(basicCognitoUser);
 
 // request basic access
 router.post("/request-access", async (req, res) => {
-  const response = await accessRequest.create(req.body);
+  const response = await accessRequest.create({
+    ...req.body,
+    userId: req.headers.__userId
+  });
   console.log("response is ", response);
   res.send({ message: "request sent to admin" });
 });
@@ -43,13 +46,6 @@ router.get("/all-my-access", async (req, res) => {
 });
 
 // sandbox
-
-router.get("/", async (req, res) => {
-  const response = await auth.find({});
-  console.log("response is ", response);
-  res.send(response);
-});
-
 router.post("/", async (req, res) => {
   const response = await auth.create(req.body);
   console.log("req is ", req.body);

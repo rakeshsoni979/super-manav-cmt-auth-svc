@@ -2,14 +2,6 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 const { APP_ACCESS, USER_TYPE } = require("../constants");
 
-const AppAccess = new mongoose.Schema({
-  access: {
-    type: String,
-    required: true,
-    enum: Object.values(APP_ACCESS),
-    default: APP_ACCESS.read
-  }
-});
 
 const accessRequest = mongoose.model(
   "accessRequest",
@@ -36,11 +28,17 @@ const accessRequest = mongoose.model(
         required: false,
         default: false
       },
-      accessList: [AppAccess]
+      accessList: [
+        {
+          type: String,
+          required: true,
+          enum: Object.values(APP_ACCESS),
+          default: APP_ACCESS.read
+        }
+      ]
     },
     { timestamps: true }
   )
 );
-
 
 exports.accessRequest = accessRequest;
