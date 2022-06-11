@@ -1,12 +1,11 @@
 const AmazonCognitoIdentity = require("amazon-cognito-identity-js");
-const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const AWS = require("aws-sdk");
 const request = require("request");
 const jwkToPem = require("jwk-to-pem");
 const jwt = require("jsonwebtoken");
-// global.fetch = require("node-fetch");
 const configJson = require("../config/default.json");
 const { auth } = require("../models/auth");
+const { accessRequest } = require("../models/access-request");
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool({
   UserPoolId: configJson.cognito.userPoolId, // Your user pool id here
@@ -82,6 +81,24 @@ const doesUserHaveAppAccess = async ({
   }
 };
 
+const createAccessRequest = async (req, res) => {
+  const user = await auth.findOne({ userId: req.headers.__userId });
+  console.log(user, 'create access request');
+  if (!user) {
+    await auth.create({
+      userId: accReq.userId,
+      accessList: [],
+      email: req.headers.__email
+    });
+  }
+  const response = await accessRequest.create({
+    ...req.body,
+    userId: req.headers.__userId
+  });
+  console.log("response is ", response);
+  res.send({ message: "request sent to admin" });
+};
+
 const getAllUserAccess = async ({ userId }) => {
   const user = await auth.findOne({ userId: userId });
   return user;
@@ -90,3 +107,4 @@ const getAllUserAccess = async ({ userId }) => {
 exports.validateCognitoIdToken = validateCognitoIdToken;
 exports.doesUserHaveAppAccess = doesUserHaveAppAccess;
 exports.getAllUserAccess = getAllUserAccess;
+exports.createAccessRequest = createAccessRequest;

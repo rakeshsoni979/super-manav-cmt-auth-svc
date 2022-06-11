@@ -2,20 +2,17 @@ const { auth } = require("../models/auth");
 const express = require("express");
 const { accessRequest } = require("../models/access-request");
 const { basicCognitoUser } = require("./interceptors/basic-cognito-user");
-const { doesUserHaveAppAccess, getAllUserAccess } = require("../services/auth");
+const {
+  doesUserHaveAppAccess,
+  getAllUserAccess,
+  createAccessRequest
+} = require("../services/auth");
 const router = express.Router();
 
 router.use(basicCognitoUser);
 
 // request basic access
-router.post("/request-access", async (req, res) => {
-  const response = await accessRequest.create({
-    ...req.body,
-    userId: req.headers.__userId
-  });
-  console.log("response is ", response);
-  res.send({ message: "request sent to admin" });
-});
+router.post("/request-access", createAccessRequest);
 // check basic access
 router.get("/check-basic-access", async (req, res) => {
   const response = await auth.findOne({ userId: req.headers.__userId });

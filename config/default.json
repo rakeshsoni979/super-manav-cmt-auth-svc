@@ -1,5 +1,6 @@
 {
   "jwtPrivateKey": "",
+  "mongoDBUrl": "mongodb+srv://codelight:VuZ2oSbemeseevCO@cluster0.llaspyi.mongodb.net/codelight",
   "cognito": {
     "userPoolId": "ap-south-1_hzpsOc4sz",
     "clientId": "5n8a1gf0l9qi1fcc9rgcp4tfe4",
