@@ -1,0 +1,8 @@
+{
+  "jwtPrivateKey": "",
+  "cognito": {
+    "userPoolId": "ap-south-1_hzpsOc4sz",
+    "clientId": "5n8a1gf0l9qi1fcc9rgcp4tfe4",
+    "region": "ap-south-1"
+  }
+}

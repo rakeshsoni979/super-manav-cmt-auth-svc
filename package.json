@@ -1,0 +1,36 @@
+{
+  "name": "super-manav-cmt-auth-svc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rakeshsoni979/super-manav-cmt-auth-svc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rakeshsoni979/super-manav-cmt-auth-svc/issues"
+  },
+  "homepage": "https://github.com/rakeshsoni979/super-manav-cmt-auth-svc#readme",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^5.2.9",
+    "aws-sdk": "^2.1152.0",
+    "express": "^4.16.2",
+    "fawn": "^2.1.5",
+    "joi": "^13.1.0",
+    "joi-objectid": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.5",
+    "mongoose": "^5.0.2",
+    "node-fetch": "^3.2.6",
+    "request": "^2.88.2"
+  }
+}

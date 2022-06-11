@@ -1,0 +1,24 @@
+{
+  "userId": "test",
+  "userType": "BASIC_USER",
+  "email": "test@test.com",
+  "basicAccess": true,
+  "accessList": [
+    {
+      "appId": "test",
+      "env": "dev",
+      "access": "UPDATE",
+      "created":"",
+      "updated": "",
+      "createdBy": "rs"
+    },
+    {
+      "appId": "test",
+      "env": "dev",
+      "access": "DELETE",
+      "created":"",
+      "updated": "",
+      "createdBy": "rs"
+    }
+  ]
+}
