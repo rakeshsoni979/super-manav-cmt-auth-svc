@@ -83,10 +83,10 @@ const doesUserHaveAppAccess = async ({
 
 const createAccessRequest = async (req, res) => {
   const user = await auth.findOne({ userId: req.headers.__userId });
-  console.log(user, 'create access request');
+  console.log(user, "create access request");
   if (!user) {
     await auth.create({
-      userId: accReq.userId,
+      userId: req.headers.__userId,
       accessList: [],
       email: req.headers.__email
     });

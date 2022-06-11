@@ -16,7 +16,7 @@ router.post("/request-access", createAccessRequest);
 // check basic access
 router.get("/check-basic-access", async (req, res) => {
   const response = await auth.findOne({ userId: req.headers.__userId });
-  if (response.basicAccess) {
+  if (response && response.basicAccess) {
     res.send({ message: "have basic access" }).end();
   } else {
     return res.status(400).json({ error: "do not have basic access" });
