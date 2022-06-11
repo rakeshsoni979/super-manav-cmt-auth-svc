@@ -22,6 +22,7 @@ const auth = mongoose.model(
   "auth",
   new mongoose.Schema(
     {
+      _id: {type: String},
       userId: {
         type: String,
         required: true

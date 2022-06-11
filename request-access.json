@@ -1,0 +1,7 @@
+{
+  "userId": "userId",
+  "forBasicAccess": false,
+  "forAppId": "forAppId",
+  "forEnv": "forEnv",
+  "accessList": ["UPDATE"]
+}
