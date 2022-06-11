@@ -1,0 +1,5 @@
+{
+  "appId": "test",
+  "accessToCheck": ["UPDATE"],
+  "env": "dev"
+}

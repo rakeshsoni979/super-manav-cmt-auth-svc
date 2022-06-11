@@ -6,6 +6,7 @@ const jwkToPem = require("jwk-to-pem");
 const jwt = require("jsonwebtoken");
 // global.fetch = require("node-fetch");
 const configJson = require("../config/default.json");
+const { auth } = require("../models/auth");
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool({
   UserPoolId: configJson.cognito.userPoolId, // Your user pool id here
@@ -64,4 +65,28 @@ const validateCognitoIdToken = (token, callback) => {
   );
 };
 
+const doesUserHaveAppAccess = async ({
+  appId,
+  userId,
+  accessToCheck = [],
+  env
+}) => {
+  const user = await auth.findOne({ userId: userId });
+  if (user && Array.isArray(user.accessList)) {
+    const allAppAccess = user.accessList
+      .filter((access) => access.appId === appId && access.env === env)
+      .map((access) => access.access);
+    return accessToCheck.every((acc) => allAppAccess.includes(acc));
+  } else {
+    return false;
+  }
+};
+
+const getAllUserAccess = async ({ userId }) => {
+  const user = await auth.findOne({ userId: userId });
+  return user;
+};
+
 exports.validateCognitoIdToken = validateCognitoIdToken;
+exports.doesUserHaveAppAccess = doesUserHaveAppAccess;
+exports.getAllUserAccess = getAllUserAccess;

@@ -1,12 +1,13 @@
 # super-manav-cmt-svc
 
 
-// is having 
-// all access
 // update access
 // approve access
 
 done
+// all access
+// is having 
+// list pending access
 // request access 
 // root user
 // normal user
