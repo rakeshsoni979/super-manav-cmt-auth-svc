@@ -12,7 +12,7 @@ const accessRequest = mongoose.model(
       },
       forRegion: {
         type: String,
-        required: true,
+        required: false,
         enum: Object.keys(REGIONS)
       },
       forAppId: {
@@ -32,7 +32,7 @@ const accessRequest = mongoose.model(
         {
           type: String,
           required: true,
-          enum: Object.values(APP_ACCESS),
+          // enum: Object.values(APP_ACCESS),
           default: APP_ACCESS.read
         }
       ]

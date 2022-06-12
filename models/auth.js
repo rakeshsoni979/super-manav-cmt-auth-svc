@@ -38,8 +38,8 @@ const auth = mongoose.model(
       regionAccessList: [
         {
           type: String,
-          required: true,
-          enum: Object.keys(REGIONS),
+          required: false,
+          // enum: Object.keys(REGIONS),
           default: "ap-south-1"
         }
       ],

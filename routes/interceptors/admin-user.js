@@ -6,7 +6,7 @@ const { basicCognitoUser } = require("./basic-cognito-user");
 const adminUser = async (req, res, next) => {
   // interceptor for token validation
   const response = await auth.findOne({ userId: req.headers.__userId });
-  if (response.userType === USER_TYPE.admin) {
+  if (response && response.userType === USER_TYPE.admin) {
     console.log("user is admin");
     next();
   } else {

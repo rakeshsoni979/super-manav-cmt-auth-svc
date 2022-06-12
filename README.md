@@ -1,7 +1,7 @@
 # super-manav-cmt-svc
 
 
-// update access
+ngrok http -host-header=rewrite 3000
 
 done
 // approve access
